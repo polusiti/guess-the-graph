@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+:root {
+  --font-caveat: var(--font-hand);
+}
+
+@theme inline {
+  --color-paper: #faf7f0;
+  --color-ink: #1a1a1a;
+  --color-ink-muted: #6b6760;
+  --color-grid: #dedad0;
+  --color-correct: #2d7a4f;
+  --color-wrong: #b03030;
+  --font-hand: var(--font-caveat);
+}
+
+/* Base */
+body {
+  background-color: #faf7f0;
+  color: #1a1a1a;
+  font-family: var(--font-hand), 'Caveat', cursive;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Sketch box — the notebook card */
+@layer components {
+  .sketch-box {
+    background-color: #faf7f0;
+    border: 2px solid #1a1a1a;
+    border-radius: 2px;
+    /* Layered shadows for slight depth / hand-drawn feel */
+    box-shadow:
+      3px 3px 0 0 #1a1a1a,
+      inset 0 0 0 1px rgba(0,0,0,0.04);
+    position: relative;
+  }
+
+  /* Primary action button */
+  .sketch-btn {
+    display: inline-block;
+    font-family: var(--font-hand), 'Caveat', cursive;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #faf7f0;
+    background-color: #1a1a1a;
+    border: 2px solid #1a1a1a;
+    border-radius: 2px;
+    padding: 0.5rem 1.5rem;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 0 #6b6760;
+    transition: box-shadow 80ms ease, transform 80ms ease;
+    text-decoration: none;
+    line-height: 1.4;
+  }
+
+  .sketch-btn:hover {
+    box-shadow: 2px 2px 0 0 #6b6760;
+    transform: translate(1px, 1px);
+  }
+
+  .sketch-btn:active {
+    box-shadow: none;
+    transform: translate(3px, 3px);
+  }
+
+  /* Choice card (answer option) */
+  .choice-card {
+    position: relative;
+    background-color: #faf7f0;
+    border: 2px solid #1a1a1a;
+    border-radius: 2px;
+    box-shadow: 2px 2px 0 0 #6b6760;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition:
+      box-shadow 80ms ease,
+      transform 80ms ease,
+      border-color 150ms ease,
+      background-color 150ms ease;
+    padding: 8px;
+  }
+
+  .choice-card:hover:not(:disabled) {
+    box-shadow: 3px 3px 0 0 #1a1a1a;
+    transform: translate(-1px, -1px);
+  }
+
+  .choice-card:disabled {
+    cursor: default;
+  }
+
+  /* Answer revealed states */
+  .choice-card.correct {
+    border-color: #2d7a4f;
+    box-shadow: 2px 2px 0 0 #2d7a4f;
+    background-color: #f0faf4;
+  }
+
+  .choice-card.wrong {
+    border-color: #b03030;
+    box-shadow: 2px 2px 0 0 #b03030;
+    background-color: #fdf0f0;
+  }
+
+  .choice-card.dim {
+    opacity: 0.5;
+    box-shadow: none;
+  }
+}
