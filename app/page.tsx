@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { loadStats, clearStats, accuracy, type GameStats } from '@/lib/storage'
-import { questions } from '@/lib/questions'
 
 const CATEGORY_LABELS: Record<string, string> = {
   composite: 'Composite',
@@ -47,7 +46,7 @@ export default function Home() {
           Guess the Graph
         </h1>
         <p className="font-hand text-xl" style={{ color: '#6b6760' }}>
-          Match equations to graphs — {questions.length} puzzles
+          Match equations to graphs
         </p>
       </div>
 
