@@ -24,7 +24,7 @@ export type Question = {
   yRange: [number, number]
 }
 
-const { sin, cos, tan, asin, acos, atan, exp, log, abs, sqrt, floor, PI } = Math
+const { sin, cos, tan, asin, acos, atan, exp, log, abs, sqrt, floor, sign, PI } = Math
 
 export const questions: Question[] = [
   {
@@ -437,5 +437,674 @@ export const questions: Question[] = [
     ],
     xRange: [-5, 5],
     yRange: [-2, 2],
+  },
+
+  // ── q21–q40: Cartesian additions ───────────────────────────────────────
+
+  {
+    id: 'q21',
+    category: 'composite',
+    difficulty: 2,
+    correct: {
+      kind: 'cartesian',
+      latex: 'y = x\\sin x',
+      eval: (x) => x * sin(x),
+    },
+    fakes: [
+      { kind: 'cartesian', latex: 'y = x\\cos x', eval: (x) => x * cos(x) },
+      { kind: 'cartesian', latex: 'y = x^2\\sin x', eval: (x) => x * x * sin(x) * 0.12 },
+      { kind: 'cartesian', latex: 'y = |x|\\sin x', eval: (x) => abs(x) * sin(x) },
+    ],
+    xRange: [-9, 9],
+    yRange: [-9, 9],
+  },
+  {
+    id: 'q22',
+    category: 'composite',
+    difficulty: 2,
+    correct: {
+      kind: 'cartesian',
+      latex: 'y = \\arcsin(\\sin x)',
+      eval: (x) => asin(sin(x)),
+    },
+    fakes: [
+      { kind: 'cartesian', latex: 'y = |\\sin x|', eval: (x) => abs(sin(x)) },
+      { kind: 'cartesian', latex: 'y = \\sin|x|', eval: (x) => sin(abs(x)) },
+      { kind: 'cartesian', latex: 'y = \\arctan(\\sin x)', eval: (x) => atan(sin(x)) },
+    ],
+    xRange: [-9, 9],
+    yRange: [-2, 2],
+  },
+  {
+    id: 'q23',
+    category: 'composite',
+    difficulty: 3,
+    correct: {
+      kind: 'cartesian',
+      latex: 'y = \\sin(e^x)',
+      eval: (x) => sin(exp(x)),
+    },
+    fakes: [
+      { kind: 'cartesian', latex: 'y = e^{\\sin x}', eval: (x) => exp(sin(x)) },
+      { kind: 'cartesian', latex: 'y = \\cos(e^x)', eval: (x) => cos(exp(x)) },
+      { kind: 'cartesian', latex: 'y = \\sin(2^x)', eval: (x) => sin(Math.pow(2, x)) },
+    ],
+    xRange: [-3, 3],
+    yRange: [-1.5, 1.5],
+  },
+  {
+    id: 'q24',
+    category: 'composite',
+    difficulty: 2,
+    correct: {
+      kind: 'cartesian',
+      latex: 'y = x - \\sin x',
+      eval: (x) => x - sin(x),
+    },
+    fakes: [
+      { kind: 'cartesian', latex: 'y = x + \\sin x', eval: (x) => x + sin(x) },
+      { kind: 'cartesian', latex: 'y = x - \\cos x', eval: (x) => x - cos(x) },
+      { kind: 'cartesian', latex: 'y = x - \\sin 2x', eval: (x) => x - sin(2 * x) },
+    ],
+    xRange: [-7, 7],
+    yRange: [-9, 9],
+  },
+  {
+    id: 'q25',
+    category: 'trigonometric',
+    difficulty: 1,
+    correct: {
+      kind: 'cartesian',
+      latex: 'y = |\\sin x|',
+      eval: (x) => abs(sin(x)),
+    },
+    fakes: [
+      { kind: 'cartesian', latex: 'y = \\sin^2 x', eval: (x) => sin(x) * sin(x) },
+      { kind: 'cartesian', latex: 'y = |\\cos x|', eval: (x) => abs(cos(x)) },
+      { kind: 'cartesian', latex: 'y = \\max(\\sin x,\\,0)', eval: (x) => Math.max(sin(x), 0) },
+    ],
+    xRange: [-9, 9],
+    yRange: [-0.2, 1.3],
+  },
+  {
+    id: 'q26',
+    category: 'trigonometric',
+    difficulty: 3,
+    correct: {
+      kind: 'cartesian',
+      latex: 'y = \\sin x\\cdot\\sin 2x\\cdot\\sin 3x',
+      eval: (x) => sin(x) * sin(2 * x) * sin(3 * x),
+    },
+    fakes: [
+      { kind: 'cartesian', latex: 'y = \\sin x\\cdot\\cos 2x\\cdot\\sin 3x', eval: (x) => sin(x) * cos(2 * x) * sin(3 * x) },
+      { kind: 'cartesian', latex: 'y = \\sin x\\cdot\\sin 2x', eval: (x) => sin(x) * sin(2 * x) },
+      { kind: 'cartesian', latex: 'y = \\cos x\\cdot\\cos 2x\\cdot\\cos 3x', eval: (x) => cos(x) * cos(2 * x) * cos(3 * x) },
+    ],
+    xRange: [-7, 7],
+    yRange: [-1.3, 1.3],
+  },
+  {
+    id: 'q27',
+    category: 'trigonometric',
+    difficulty: 3,
+    correct: {
+      kind: 'cartesian',
+      latex: 'y = \\cos x\\cdot\\cos 2x\\cdot\\cos 3x',
+      eval: (x) => cos(x) * cos(2 * x) * cos(3 * x),
+    },
+    fakes: [
+      { kind: 'cartesian', latex: 'y = \\sin x\\cdot\\sin 2x\\cdot\\sin 3x', eval: (x) => sin(x) * sin(2 * x) * sin(3 * x) },
+      { kind: 'cartesian', latex: 'y = \\cos x\\cdot\\cos 2x', eval: (x) => cos(x) * cos(2 * x) },
+      { kind: 'cartesian', latex: 'y = \\cos 6x', eval: (x) => cos(6 * x) },
+    ],
+    xRange: [-5, 5],
+    yRange: [-1.3, 1.3],
+  },
+  {
+    id: 'q28',
+    category: 'trigonometric',
+    difficulty: 3,
+    correct: {
+      kind: 'cartesian',
+      latex: 'y = \\sin x + \\dfrac{\\sin 3x}{3} + \\dfrac{\\sin 5x}{5}',
+      eval: (x) => sin(x) + sin(3 * x) / 3 + sin(5 * x) / 5,
+    },
+    fakes: [
+      { kind: 'cartesian', latex: 'y = \\sin x + \\dfrac{\\sin 2x}{2} + \\dfrac{\\sin 3x}{3}', eval: (x) => sin(x) + sin(2 * x) / 2 + sin(3 * x) / 3 },
+      { kind: 'cartesian', latex: 'y = \\sin x + \\dfrac{\\sin 3x}{3}', eval: (x) => sin(x) + sin(3 * x) / 3 },
+      { kind: 'cartesian', latex: 'y = \\dfrac{4}{\\pi}\\sin x', eval: (x) => (4 / PI) * sin(x) },
+    ],
+    xRange: [-9, 9],
+    yRange: [-1.8, 1.8],
+  },
+  {
+    id: 'q29',
+    category: 'composite',
+    difficulty: 3,
+    correct: {
+      kind: 'cartesian',
+      latex: 'y = \\sin(x\\cos x)',
+      eval: (x) => sin(x * cos(x)),
+    },
+    fakes: [
+      { kind: 'cartesian', latex: 'y = \\cos(x\\cos x)', eval: (x) => cos(x * cos(x)) },
+      { kind: 'cartesian', latex: 'y = \\sin x\\cdot\\cos x', eval: (x) => sin(x) * cos(x) },
+      { kind: 'cartesian', latex: 'y = \\sin(2x\\cos x)', eval: (x) => sin(2 * x * cos(x)) },
+    ],
+    xRange: [-6, 6],
+    yRange: [-1.5, 1.5],
+  },
+  {
+    id: 'q30',
+    category: 'composite',
+    difficulty: 2,
+    correct: {
+      kind: 'cartesian',
+      latex: 'y = \\dfrac{\\sin x}{1+x^2}',
+      eval: (x) => sin(x) / (1 + x * x),
+    },
+    fakes: [
+      { kind: 'cartesian', latex: 'y = \\dfrac{\\cos x}{1+x^2}', eval: (x) => cos(x) / (1 + x * x) },
+      { kind: 'cartesian', latex: 'y = \\dfrac{\\sin x}{1+|x|}', eval: (x) => sin(x) / (1 + abs(x)) },
+      { kind: 'cartesian', latex: 'y = \\sin x\\cdot e^{-x^2/4}', eval: (x) => sin(x) * exp(-x * x / 4) },
+    ],
+    xRange: [-10, 10],
+    yRange: [-1.2, 1.2],
+  },
+  {
+    id: 'q31',
+    category: 'exponential',
+    difficulty: 2,
+    correct: {
+      kind: 'cartesian',
+      latex: 'y = e^{-x^2/2}\\cos 3x',
+      eval: (x) => exp(-x * x / 2) * cos(3 * x),
+    },
+    fakes: [
+      { kind: 'cartesian', latex: 'y = e^{-x^2}\\cos 3x', eval: (x) => exp(-x * x) * cos(3 * x) },
+      { kind: 'cartesian', latex: 'y = e^{-x^2/2}\\sin 3x', eval: (x) => exp(-x * x / 2) * sin(3 * x) },
+      { kind: 'cartesian', latex: 'y = e^{-x^2/2}\\cos 5x', eval: (x) => exp(-x * x / 2) * cos(5 * x) },
+    ],
+    xRange: [-4, 4],
+    yRange: [-1.3, 1.3],
+  },
+  {
+    id: 'q32',
+    category: 'exponential',
+    difficulty: 2,
+    correct: {
+      kind: 'cartesian',
+      latex: 'y = xe^{-|x|}',
+      eval: (x) => x * exp(-abs(x)),
+    },
+    fakes: [
+      { kind: 'cartesian', latex: 'y = xe^{-x^2}', eval: (x) => x * exp(-x * x) },
+      { kind: 'cartesian', latex: 'y = \\dfrac{x}{1+x^2}', eval: (x) => x / (1 + x * x) },
+      { kind: 'cartesian', latex: 'y = x^2 e^{-|x|}', eval: (x) => x * x * exp(-abs(x)) },
+    ],
+    xRange: [-4, 4],
+    yRange: [-0.8, 0.8],
+  },
+  {
+    id: 'q33',
+    category: 'algebraic',
+    difficulty: 2,
+    correct: {
+      kind: 'cartesian',
+      latex: 'y = \\dfrac{x}{\\sqrt{1+x^2}}',
+      eval: (x) => x / sqrt(1 + x * x),
+    },
+    fakes: [
+      { kind: 'cartesian', latex: 'y = \\arctan x', eval: (x) => atan(x) },
+      { kind: 'cartesian', latex: 'y = \\dfrac{x}{1+x^2}', eval: (x) => x / (1 + x * x) },
+      { kind: 'cartesian', latex: 'y = \\tanh x', eval: (x) => (exp(x) - exp(-x)) / (exp(x) + exp(-x)) },
+    ],
+    xRange: [-5, 5],
+    yRange: [-1.3, 1.3],
+  },
+  {
+    id: 'q34',
+    category: 'algebraic',
+    difficulty: 2,
+    correct: {
+      kind: 'cartesian',
+      latex: 'y = \\dfrac{x^3}{x^2+1}',
+      eval: (x) => (x * x * x) / (x * x + 1),
+    },
+    fakes: [
+      { kind: 'cartesian', latex: 'y = \\dfrac{x}{x^2+1}', eval: (x) => x / (x * x + 1) },
+      { kind: 'cartesian', latex: 'y = x\\cdot\\dfrac{x^2-1}{x^2+1}', eval: (x) => x * (x * x - 1) / (x * x + 1) },
+      { kind: 'cartesian', latex: 'y = \\dfrac{x^3}{(x^2+1)^{3/2}}', eval: (x) => (x * x * x) / Math.pow(x * x + 1, 1.5) },
+    ],
+    xRange: [-5, 5],
+    yRange: [-5, 5],
+  },
+  {
+    id: 'q35',
+    category: 'trigonometric',
+    difficulty: 2,
+    correct: {
+      kind: 'cartesian',
+      latex: 'y = \\dfrac{1}{\\sin x}',
+      eval: (x) => {
+        const v = sin(x)
+        return abs(v) < 1e-9 ? NaN : 1 / v
+      },
+    },
+    fakes: [
+      {
+        kind: 'cartesian',
+        latex: 'y = \\dfrac{1}{\\cos x}',
+        eval: (x) => {
+          const v = cos(x)
+          return abs(v) < 1e-9 ? NaN : 1 / v
+        },
+      },
+      { kind: 'cartesian', latex: 'y = \\sin\\dfrac{1}{x}', eval: (x) => (x === 0 ? NaN : sin(1 / x)) },
+      { kind: 'cartesian', latex: 'y = \\dfrac{1}{1+\\sin^2 x}', eval: (x) => 1 / (1 + sin(x) * sin(x)) },
+    ],
+    xRange: [-8, 8],
+    yRange: [-5, 5],
+  },
+  {
+    id: 'q36',
+    category: 'algebraic',
+    difficulty: 2,
+    correct: {
+      kind: 'cartesian',
+      latex: 'y = x\\ln|x|',
+      eval: (x) => (x === 0 ? 0 : x * log(abs(x))),
+    },
+    fakes: [
+      { kind: 'cartesian', latex: 'y = x\\ln(1+|x|)', eval: (x) => x * log(1 + abs(x)) },
+      { kind: 'cartesian', latex: 'y = |x|\\ln|x|', eval: (x) => (x === 0 ? 0 : abs(x) * log(abs(x))) },
+      { kind: 'cartesian', latex: 'y = x^2\\ln|x|', eval: (x) => (x === 0 ? 0 : x * x * log(abs(x))) },
+    ],
+    xRange: [-3, 3],
+    yRange: [-1.5, 3.5],
+  },
+  {
+    id: 'q37',
+    category: 'trigonometric',
+    difficulty: 2,
+    correct: {
+      kind: 'cartesian',
+      latex: 'y = \\sin x + \\cos 2x',
+      eval: (x) => sin(x) + cos(2 * x),
+    },
+    fakes: [
+      { kind: 'cartesian', latex: 'y = \\sin x + \\cos x', eval: (x) => sin(x) + cos(x) },
+      { kind: 'cartesian', latex: 'y = \\sin x - \\cos 2x', eval: (x) => sin(x) - cos(2 * x) },
+      { kind: 'cartesian', latex: 'y = \\cos x + \\cos 2x', eval: (x) => cos(x) + cos(2 * x) },
+    ],
+    xRange: [-8, 8],
+    yRange: [-2.5, 2.5],
+  },
+  {
+    id: 'q38',
+    category: 'algebraic',
+    difficulty: 2,
+    correct: {
+      kind: 'cartesian',
+      latex: 'y = x\\arctan x',
+      eval: (x) => x * atan(x),
+    },
+    fakes: [
+      { kind: 'cartesian', latex: 'y = \\arctan(x^2)', eval: (x) => atan(x * x) },
+      { kind: 'cartesian', latex: 'y = x + \\arctan x', eval: (x) => x + atan(x) },
+      { kind: 'cartesian', latex: 'y = \\sqrt{1+x^2}-1', eval: (x) => sqrt(1 + x * x) - 1 },
+    ],
+    xRange: [-4, 4],
+    yRange: [-0.5, 7],
+  },
+  {
+    id: 'q39',
+    category: 'trigonometric',
+    difficulty: 3,
+    correct: {
+      kind: 'cartesian',
+      latex: 'y = \\dfrac{\\sin 2x}{2} + \\dfrac{\\sin 3x}{3}',
+      eval: (x) => sin(2 * x) / 2 + sin(3 * x) / 3,
+    },
+    fakes: [
+      { kind: 'cartesian', latex: 'y = \\dfrac{\\sin x}{1} + \\dfrac{\\sin 2x}{2}', eval: (x) => sin(x) + sin(2 * x) / 2 },
+      { kind: 'cartesian', latex: 'y = \\dfrac{\\sin 2x}{2} - \\dfrac{\\sin 3x}{3}', eval: (x) => sin(2 * x) / 2 - sin(3 * x) / 3 },
+      { kind: 'cartesian', latex: 'y = \\dfrac{\\cos 2x}{2} + \\dfrac{\\cos 3x}{3}', eval: (x) => cos(2 * x) / 2 + cos(3 * x) / 3 },
+    ],
+    xRange: [-8, 8],
+    yRange: [-1.3, 1.3],
+  },
+  {
+    id: 'q40',
+    category: 'trigonometric',
+    difficulty: 2,
+    correct: {
+      kind: 'cartesian',
+      latex: 'y = \\sin^3 x',
+      eval: (x) => sin(x) ** 3,
+    },
+    fakes: [
+      { kind: 'cartesian', latex: 'y = \\sin x', eval: (x) => sin(x) },
+      { kind: 'cartesian', latex: 'y = \\sin x\\cos^2 x', eval: (x) => sin(x) * cos(x) * cos(x) },
+      { kind: 'cartesian', latex: 'y = \\sin x\\cdot|\\sin x|', eval: (x) => sin(x) * abs(sin(x)) },
+    ],
+    xRange: [-9, 9],
+    yRange: [-1.3, 1.3],
+  },
+
+  // ── q41–q47: Parametric additions ──────────────────────────────────────
+
+  {
+    id: 'q41',
+    category: 'parametric',
+    difficulty: 2,
+    correct: {
+      kind: 'parametric',
+      latex: '\\begin{cases}x=\\sin 2t\\\\y=\\sin 3t\\end{cases}',
+      evalX: (t) => sin(2 * t),
+      evalY: (t) => sin(3 * t),
+      tRange: [0, 2 * PI],
+    },
+    fakes: [
+      {
+        kind: 'parametric',
+        latex: '\\begin{cases}x=\\sin 3t\\\\y=\\sin 2t\\end{cases}',
+        evalX: (t) => sin(3 * t),
+        evalY: (t) => sin(2 * t),
+        tRange: [0, 2 * PI],
+      },
+      {
+        kind: 'parametric',
+        latex: '\\begin{cases}x=\\cos 2t\\\\y=\\sin 3t\\end{cases}',
+        evalX: (t) => cos(2 * t),
+        evalY: (t) => sin(3 * t),
+        tRange: [0, 2 * PI],
+      },
+      {
+        kind: 'parametric',
+        latex: '\\begin{cases}x=\\sin 2t\\\\y=\\cos 3t\\end{cases}',
+        evalX: (t) => sin(2 * t),
+        evalY: (t) => cos(3 * t),
+        tRange: [0, 2 * PI],
+      },
+    ],
+    xRange: [-1.3, 1.3],
+    yRange: [-1.3, 1.3],
+  },
+  {
+    id: 'q42',
+    category: 'parametric',
+    difficulty: 3,
+    correct: {
+      kind: 'parametric',
+      latex: '\\begin{cases}x=\\sin 4t\\\\y=\\sin 5t\\end{cases}',
+      evalX: (t) => sin(4 * t),
+      evalY: (t) => sin(5 * t),
+      tRange: [0, 2 * PI],
+    },
+    fakes: [
+      {
+        kind: 'parametric',
+        latex: '\\begin{cases}x=\\sin 5t\\\\y=\\sin 4t\\end{cases}',
+        evalX: (t) => sin(5 * t),
+        evalY: (t) => sin(4 * t),
+        tRange: [0, 2 * PI],
+      },
+      {
+        kind: 'parametric',
+        latex: '\\begin{cases}x=\\sin 4t\\\\y=\\sin 3t\\end{cases}',
+        evalX: (t) => sin(4 * t),
+        evalY: (t) => sin(3 * t),
+        tRange: [0, 2 * PI],
+      },
+      {
+        kind: 'parametric',
+        latex: '\\begin{cases}x=\\cos 4t\\\\y=\\sin 5t\\end{cases}',
+        evalX: (t) => cos(4 * t),
+        evalY: (t) => sin(5 * t),
+        tRange: [0, 2 * PI],
+      },
+    ],
+    xRange: [-1.3, 1.3],
+    yRange: [-1.3, 1.3],
+  },
+  {
+    id: 'q43',
+    category: 'parametric',
+    difficulty: 2,
+    correct: {
+      kind: 'parametric',
+      latex: '\\begin{cases}x=\\cos^3 t\\\\y=\\sin^3 t\\end{cases}',
+      evalX: (t) => cos(t) ** 3,
+      evalY: (t) => sin(t) ** 3,
+      tRange: [0, 2 * PI],
+    },
+    fakes: [
+      {
+        kind: 'parametric',
+        latex: '\\begin{cases}x=\\cos t\\\\y=\\sin t\\end{cases}',
+        evalX: (t) => cos(t),
+        evalY: (t) => sin(t),
+        tRange: [0, 2 * PI],
+      },
+      {
+        kind: 'parametric',
+        latex: '\\begin{cases}x=\\cos^5 t\\\\y=\\sin^5 t\\end{cases}',
+        evalX: (t) => cos(t) ** 5,
+        evalY: (t) => sin(t) ** 5,
+        tRange: [0, 2 * PI],
+      },
+      {
+        kind: 'parametric',
+        latex: '\\begin{cases}x=\\cos^2 t\\\\y=\\sin^2 t\\end{cases}',
+        evalX: (t) => cos(t) ** 2,
+        evalY: (t) => sin(t) ** 2,
+        tRange: [0, 2 * PI],
+      },
+    ],
+    xRange: [-1.3, 1.3],
+    yRange: [-1.3, 1.3],
+  },
+  {
+    id: 'q44',
+    category: 'parametric',
+    difficulty: 2,
+    correct: {
+      kind: 'parametric',
+      latex: '\\begin{cases}x=\\tfrac{1}{3}(2\\cos t-\\cos 2t)\\\\y=\\tfrac{1}{3}(2\\sin t-\\sin 2t)\\end{cases}',
+      evalX: (t) => (2 * cos(t) - cos(2 * t)) / 3,
+      evalY: (t) => (2 * sin(t) - sin(2 * t)) / 3,
+      tRange: [0, 2 * PI],
+    },
+    fakes: [
+      {
+        kind: 'parametric',
+        latex: '\\begin{cases}x=\\cos t\\\\y=\\sin t\\end{cases}',
+        evalX: (t) => cos(t),
+        evalY: (t) => sin(t),
+        tRange: [0, 2 * PI],
+      },
+      {
+        kind: 'parametric',
+        latex: '\\begin{cases}x=\\tfrac{1}{4}(3\\cos t-\\cos 3t)\\\\y=\\tfrac{1}{4}(3\\sin t-\\sin 3t)\\end{cases}',
+        evalX: (t) => (3 * cos(t) - cos(3 * t)) / 4,
+        evalY: (t) => (3 * sin(t) - sin(3 * t)) / 4,
+        tRange: [0, 2 * PI],
+      },
+      {
+        kind: 'parametric',
+        latex: '\\begin{cases}x=\\tfrac{1}{3}(2\\cos t+\\cos 2t)\\\\y=\\tfrac{1}{3}(2\\sin t+\\sin 2t)\\end{cases}',
+        evalX: (t) => (2 * cos(t) + cos(2 * t)) / 3,
+        evalY: (t) => (2 * sin(t) + sin(2 * t)) / 3,
+        tRange: [0, 2 * PI],
+      },
+    ],
+    xRange: [-1.3, 1.3],
+    yRange: [-1.3, 1.3],
+  },
+  {
+    id: 'q45',
+    category: 'parametric',
+    difficulty: 2,
+    correct: {
+      kind: 'parametric',
+      latex: '\\begin{cases}x=t-\\sin t\\\\y=1-\\cos t\\end{cases}',
+      evalX: (t) => t - sin(t),
+      evalY: (t) => 1 - cos(t),
+      tRange: [0, 4 * PI],
+    },
+    fakes: [
+      {
+        kind: 'parametric',
+        latex: '\\begin{cases}x=t+\\sin t\\\\y=1-\\cos t\\end{cases}',
+        evalX: (t) => t + sin(t),
+        evalY: (t) => 1 - cos(t),
+        tRange: [0, 4 * PI],
+      },
+      {
+        kind: 'parametric',
+        latex: '\\begin{cases}x=t-\\sin 2t\\\\y=1-\\cos 2t\\end{cases}',
+        evalX: (t) => t - sin(2 * t),
+        evalY: (t) => 1 - cos(2 * t),
+        tRange: [0, 4 * PI],
+      },
+      {
+        kind: 'parametric',
+        latex: '\\begin{cases}x=t-\\sin t\\\\y=1+\\cos t\\end{cases}',
+        evalX: (t) => t - sin(t),
+        evalY: (t) => 1 + cos(t),
+        tRange: [0, 4 * PI],
+      },
+    ],
+    xRange: [-0.5, 13],
+    yRange: [-0.3, 2.3],
+  },
+  {
+    id: 'q46',
+    category: 'parametric',
+    difficulty: 2,
+    correct: {
+      kind: 'parametric',
+      latex: '\\begin{cases}x=\\cos 2t\\cdot\\cos t\\\\y=\\cos 2t\\cdot\\sin t\\end{cases}',
+      evalX: (t) => cos(2 * t) * cos(t),
+      evalY: (t) => cos(2 * t) * sin(t),
+      tRange: [0, 2 * PI],
+    },
+    fakes: [
+      {
+        kind: 'parametric',
+        latex: '\\begin{cases}x=\\cos 3t\\cdot\\cos t\\\\y=\\cos 3t\\cdot\\sin t\\end{cases}',
+        evalX: (t) => cos(3 * t) * cos(t),
+        evalY: (t) => cos(3 * t) * sin(t),
+        tRange: [0, 2 * PI],
+      },
+      {
+        kind: 'parametric',
+        latex: '\\begin{cases}x=\\cos t\\\\y=\\sin t\\end{cases}',
+        evalX: (t) => cos(t),
+        evalY: (t) => sin(t),
+        tRange: [0, 2 * PI],
+      },
+      {
+        kind: 'parametric',
+        latex: '\\begin{cases}x=\\sin 2t\\cdot\\cos t\\\\y=\\sin 2t\\cdot\\sin t\\end{cases}',
+        evalX: (t) => sin(2 * t) * cos(t),
+        evalY: (t) => sin(2 * t) * sin(t),
+        tRange: [0, 2 * PI],
+      },
+    ],
+    xRange: [-1.3, 1.3],
+    yRange: [-1.3, 1.3],
+  },
+  {
+    id: 'q47',
+    category: 'parametric',
+    difficulty: 2,
+    correct: {
+      kind: 'parametric',
+      latex: '\\begin{cases}x=e^{-t/8}\\cos 5t\\\\y=e^{-t/8}\\sin 5t\\end{cases}',
+      evalX: (t) => exp(-t / 8) * cos(5 * t),
+      evalY: (t) => exp(-t / 8) * sin(5 * t),
+      tRange: [0, 6 * PI],
+    },
+    fakes: [
+      {
+        kind: 'parametric',
+        latex: '\\begin{cases}x=e^{-t/4}\\cos 5t\\\\y=e^{-t/4}\\sin 5t\\end{cases}',
+        evalX: (t) => exp(-t / 4) * cos(5 * t),
+        evalY: (t) => exp(-t / 4) * sin(5 * t),
+        tRange: [0, 6 * PI],
+      },
+      {
+        kind: 'parametric',
+        latex: '\\begin{cases}x=e^{-t/8}\\cos 3t\\\\y=e^{-t/8}\\sin 3t\\end{cases}',
+        evalX: (t) => exp(-t / 8) * cos(3 * t),
+        evalY: (t) => exp(-t / 8) * sin(3 * t),
+        tRange: [0, 6 * PI],
+      },
+      {
+        kind: 'parametric',
+        latex: '\\begin{cases}x=\\dfrac{\\cos 5t}{1+t/5}\\\\y=\\dfrac{\\sin 5t}{1+t/5}\\end{cases}',
+        evalX: (t) => cos(5 * t) / (1 + t / 5),
+        evalY: (t) => sin(5 * t) / (1 + t / 5),
+        tRange: [0, 6 * PI],
+      },
+    ],
+    xRange: [-1.3, 1.3],
+    yRange: [-1.3, 1.3],
+  },
+
+  // ── q48–q50: Final cartesian ────────────────────────────────────────────
+
+  {
+    id: 'q48',
+    category: 'composite',
+    difficulty: 3,
+    correct: {
+      kind: 'cartesian',
+      latex: 'y = \\sin(x + 2\\sin x)',
+      eval: (x) => sin(x + 2 * sin(x)),
+    },
+    fakes: [
+      { kind: 'cartesian', latex: 'y = \\sin(x + \\sin x)', eval: (x) => sin(x + sin(x)) },
+      { kind: 'cartesian', latex: 'y = \\sin(x + 3\\sin x)', eval: (x) => sin(x + 3 * sin(x)) },
+      { kind: 'cartesian', latex: 'y = \\sin(2x + \\sin x)', eval: (x) => sin(2 * x + sin(x)) },
+    ],
+    xRange: [-8, 8],
+    yRange: [-1.5, 1.5],
+  },
+  {
+    id: 'q49',
+    category: 'composite',
+    difficulty: 3,
+    correct: {
+      kind: 'cartesian',
+      latex: 'y = \\cos(x\\sin x)',
+      eval: (x) => cos(x * sin(x)),
+    },
+    fakes: [
+      { kind: 'cartesian', latex: 'y = \\sin(x\\cos x)', eval: (x) => sin(x * cos(x)) },
+      { kind: 'cartesian', latex: 'y = \\cos x\\cdot\\cos(\\sin x)', eval: (x) => cos(x) * cos(sin(x)) },
+      { kind: 'cartesian', latex: 'y = \\cos(x\\sin x + x)', eval: (x) => cos(x * sin(x) + x) },
+    ],
+    xRange: [-6, 6],
+    yRange: [-1.5, 1.5],
+  },
+  {
+    id: 'q50',
+    category: 'composite',
+    difficulty: 2,
+    correct: {
+      kind: 'cartesian',
+      latex: 'y = \\sqrt{|\\cos x|}',
+      eval: (x) => sqrt(abs(cos(x))),
+    },
+    fakes: [
+      { kind: 'cartesian', latex: 'y = |\\cos x|', eval: (x) => abs(cos(x)) },
+      { kind: 'cartesian', latex: 'y = \\sqrt{|\\sin x|}', eval: (x) => sqrt(abs(sin(x))) },
+      { kind: 'cartesian', latex: 'y = \\cos^2 x', eval: (x) => cos(x) * cos(x) },
+    ],
+    xRange: [-9, 9],
+    yRange: [-0.2, 1.3],
   },
 ]
