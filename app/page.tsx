@@ -65,7 +65,7 @@ export default function Home() {
             <li>— Read the equation, pick the matching graph</li>
             <li>— Or study a graph and identify its formula</li>
             <li>— Parametric curves included</li>
-            <li>— 20 hand-picked, non-trivial functions</li>
+            <li>— enjoy it!</li>
           </ul>
         </div>
       </div>
